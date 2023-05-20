@@ -442,9 +442,10 @@ void sortPasswords(std::vector<Password> &passwords) {
 
 int main() {
     bool first_run;
-    auto *passwords = new std::vector<Password>();
+    auto passwords = new std::vector<Password>();
     auto categories = new std::vector<std::string>();
-    std::string file_name, row;
+    std::string file_name;
+    std::string row;
     std::string password;
     std::cout << "Enter file name to decrypt: ";
     std::cin >> file_name;
