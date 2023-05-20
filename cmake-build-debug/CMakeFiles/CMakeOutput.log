@@ -486,3 +486,23 @@ Parsed CXX implicit link information from above output:
   implicit fwks: []
 
 
+Performing C++ SOURCE FILE Test has_std_20_flag succeeded with the following output:
+Change Dir: C:/Programming/PRs/CPP/S28352_P01/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-5huuns
+
+Run Build Command(s):C:/Users/Abema/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8770.66/bin/ninja/win/x64/ninja.exe cmTC_36649 && [1/2] Building CXX object CMakeFiles/cmTC_36649.dir/src.cxx.obj
+[2/2] Linking CXX executable cmTC_36649.exe
+
+
+Source file was:
+int main() { return 0; }
+
+Performing C++ SOURCE FILE Test has_std_2a_flag succeeded with the following output:
+Change Dir: C:/Programming/PRs/CPP/S28352_P01/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-ahe2w9
+
+Run Build Command(s):C:/Users/Abema/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8770.66/bin/ninja/win/x64/ninja.exe cmTC_bcf4d && [1/2] Building CXX object CMakeFiles/cmTC_bcf4d.dir/src.cxx.obj
+[2/2] Linking CXX executable cmTC_bcf4d.exe
+
+
+Source file was:
+int main() { return 0; }
+
