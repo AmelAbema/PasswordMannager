@@ -442,7 +442,7 @@ void sortPasswords(std::vector<Password> &passwords) {
 
 int main() {
     bool first_run;
-    std::vector<Password> *passwords = new std::vector<Password>();
+    auto *passwords = new std::vector<Password>();
     auto categories = new std::vector<std::string>();
     std::string file_name, row;
     std::string password;
