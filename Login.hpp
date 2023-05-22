@@ -10,7 +10,7 @@ namespace login {
      * @return true if the password is correct, false if not
      */
 
-    auto saveTime(time_t time, const std::string& filePath) -> void;
+    auto saveTime(time_t time, const std::string& filePath, const bool& isSuccess) -> void;
 
     /**
      * @brief Saves the time of the last login

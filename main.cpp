@@ -24,9 +24,6 @@ auto main() -> int{
         }
     }
 
-
-    time_t timeNow = time(nullptr);
-    login::saveTime(timeNow, filePath);
     while (!quit) {
         std::cout << "Available operations: " << std::endl;
         std::cout << "1: search password    7: remove category" << std::endl;
