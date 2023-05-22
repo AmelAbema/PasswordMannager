@@ -37,8 +37,8 @@ auto main() -> int {
         std::cout << "1: search password    7: remove category" << "\n";
         std::cout << "2: sort passwords     8: show file" << "\n";
         std::cout << "3: add password       9: remove file" << "\n";
-        std::cout << "4: edit password      10: help menu" << "\n";
-        std::cout << "5: remove password    11: quit program" << "\n";
+        std::cout << "4: edit password      10: quit program" << "\n";
+        std::cout << "5: remove password" << "\n";
         std::cout << "6: add category \n" << "\n";
         std::cout << "Enter operation: \n";
 
@@ -84,10 +84,6 @@ auto main() -> int {
                 operations::deleteFile(filePath);
                 break;
             case 10:
-                std::cout << "You chose 'help menu'" << "\n";
-                operations::help();
-                break;
-            case 11:
                 std::cout << "You chose 'quit program'" << "\n";
                 quit = true;
                 operations::quit();

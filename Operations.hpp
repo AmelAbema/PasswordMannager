@@ -3,11 +3,6 @@
 #include <fstream>
 
 namespace operations {
-    auto help() -> void;
-
-    /**
-    * @brief Help for the user
-    */
 
     auto openFile() -> std::string;
 

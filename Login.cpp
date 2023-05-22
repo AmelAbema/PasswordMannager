@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
+#include <fmt/ranges.h>
 #include "Login.hpp"
 #include "Cipher.hpp"
 
@@ -18,10 +19,10 @@ namespace login {
         std::string userPassword;
         int key;
 
-        std::cout << "Password: " << "\n";
+        fmt::print("Password: \n");
         std::cin >> userPassword;
 
-        std::cout << "Key: " << "\n";
+        fmt::print("Key: \n");
         std::cin >> key;
 
         std::string globalPass;
@@ -30,11 +31,11 @@ namespace login {
 
 
         if (userPassword == globalPass) {
-            std::cout << "Correct password \n";
+            fmt::print("Correct password \n");
             file.close();
             return true;
         } else {
-            std::cout << "Incorrect password, try again (remember you have 3 attempts) \n";
+            fmt::print("Incorrect password, try again (remember you have 3 attempts) \n");
             return false;
         }
 

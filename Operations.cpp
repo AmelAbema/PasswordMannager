@@ -12,36 +12,6 @@ namespace operations {
     std::vector<std::string> categories = {"social", "work", "private"};
 
 
-    auto help() -> void {
-        std::cout << "Helow, this is a password manager,\n"
-                     "made by Piotr Jalocha,\n"
-                     "you can use this program to manage your passwords.\n" << "\n";
-
-        std::cout << "To use this program, you need to have a file with your passwords.\n"
-                     "You can create a new file or open an existing one.\n" << "\n";
-
-        std::cout << "To create a new file, you need to enter the name of the file.\n"
-                     "You can use the following format: \n"
-                     "\"filename.txt\"\n" << "\n";
-
-        std::cout << "To open an existing file, you need to chose the file.\n";
-        std::cout << "To add a new password, you need to chose the 'add password' option.\n";
-        std::cout << "To show all passwords, you need to chose the 'show passwords' option.\n";
-        std::cout << "To edit a password, you need to chose the 'edit password' option.\n";
-        std::cout << "To remove a password, you need to chose the 'remove password' option.\n";
-        std::cout << "To add a category, you need to chose the 'add category' option.\n";
-        std::cout << "To remove a category, you need to chose the 'remove category' option.\n";
-        std::cout << "To sort passwords, you need to chose the 'sort passwords' option.\n";
-        std::cout << "To search passwords, you need to chose the 'search password' option.\n";
-        std::cout << "To show file, you need to chose the 'show file' option.\n";
-        std::cout << "To remove file, you need to chose the 'remove file' option.\n";
-        std::cout << "To quit the program, you need to chose the 'quit program' option.\n";
-        std::cout << "To see this menu again, you need to chose the 'help menu' option.\n";
-        std::cout << "To exit the program, you need to chose the 'exit program' option.\n" << "\n";
-
-        std::cout << "Thank you for using this program!\n" << "\n";
-    }
-
     auto openFile() -> std::string {
 
         std::string filePath;

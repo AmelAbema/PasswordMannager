@@ -6,7 +6,7 @@ namespace login {
 
     /**
      * @brief Used to login in the program
-     * @param userPassword, kay
+     * @param userPassword, key
      * @return true if the password is correct, false if not
      */
 
@@ -14,6 +14,6 @@ namespace login {
 
     /**
      * @brief Saves the time of the last login
-     * @param time
+     * @param time, filePath, isSuccess(bool to know whether login was successful)
      */
 }
