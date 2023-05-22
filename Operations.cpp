@@ -15,14 +15,14 @@ namespace operations {
     auto help() -> void {
         std::cout << "Helow, this is a password manager,\n"
                      "made by Piotr Jalocha,\n"
-                     "you can use this program to manage your passwords.\n" << std::endl;
+                     "you can use this program to manage your passwords.\n" << "\n";
 
         std::cout << "To use this program, you need to have a file with your passwords.\n"
-                     "You can create a new file or open an existing one.\n" << std::endl;
+                     "You can create a new file or open an existing one.\n" << "\n";
 
         std::cout << "To create a new file, you need to enter the name of the file.\n"
                      "You can use the following format: \n"
-                     "\"filename.txt\"\n" << std::endl;
+                     "\"filename.txt\"\n" << "\n";
 
         std::cout << "To open an existing file, you need to chose the file.\n";
         std::cout << "To add a new password, you need to chose the 'add password' option.\n";
@@ -37,9 +37,9 @@ namespace operations {
         std::cout << "To remove file, you need to chose the 'remove file' option.\n";
         std::cout << "To quit the program, you need to chose the 'quit program' option.\n";
         std::cout << "To see this menu again, you need to chose the 'help menu' option.\n";
-        std::cout << "To exit the program, you need to chose the 'exit program' option.\n" << std::endl;
+        std::cout << "To exit the program, you need to chose the 'exit program' option.\n" << "\n";
 
-        std::cout << "Thank you for using this program!\n" << std::endl;
+        std::cout << "Thank you for using this program!\n" << "\n";
     }
 
     auto openFile() -> std::string {
@@ -50,101 +50,73 @@ namespace operations {
         int key;
         std::ofstream file;
 
-        std::cout << "Choose option:\n" << std::endl <<
+        std::cout << "Choose option:\n" << "\n" <<
                   "1 - write absolute path to your file\n"
-                  "2 - create new file\n" << std::endl;
+                  "2 - create new file\n" << "\n";
 
         int choice;
         std::cout << "Enter number:";
         std::cin >> choice;
-        std::cout << std::endl;
+        std::cout << "\n";
 
         switch (choice) {
             case 1:
-                std::cout << "Enter your absolute file path \n"
-                             "(i.e. G:\\szkola\\PJC\\PasswordManagerCPP\\files\\login.txt): ";
+                std::cout << "Enter your absolute file path \n";
                 std::cin >> filePath;
-                while (filePath.length() == 0) {
-                    std::cout << "Your file path is empty. Try again: ";
-                    std::cout << "Enter your absolute file path \n"
-                                 "(i.e. G:\\szkola\\PJC\\PasswordManagerCPP\\files\\login.txt): ";
+                while (
+                        filePath.length() == 0 &&
+                        filePath.find('\\') == std::string::npos &&
+                        filePath.find(".txt") == std::string::npos
+                        ) {
+                    std::cout << "Your file path is wrong" << "\n";
                     std::cin >> filePath;
                 }
-                while (filePath.find('\\') == std::string::npos) {
-                    std::cout << "Your file path is wrong" << std::endl;
-                    std::cout << "Enter your absolute file path \n"
-                                 "(i.e. G:\\szkola\\PJC\\PasswordManagerCPP\\files\\login.txt): ";
-                    std::cin >> filePath;
-                }
-                while (filePath.find(".txt") == std::string::npos) {
-                    std::cout << "Your file path has to end with .txt" << std::endl;
-                    std::cout << "Enter your absolute file path \n"
-                                 "(i.e. G:\\szkola\\PJC\\PasswordManagerCPP\\files\\login.txt): ";
-                    std::cin >> filePath;
-                }
-                while (filePath.find("G:\\") == std::string::npos && filePath.find("C:\\") == std::string::npos &&
-                       filePath.find("D:\\") == std::string::npos && filePath.find("E:\\") == std::string::npos &&
-                       filePath.find("F:\\") == std::string::npos && filePath.find("H:\\") == std::string::npos &&
-                       filePath.find("I:\\") == std::string::npos && filePath.find("J:\\") == std::string::npos &&
-                       filePath.find("K:\\") == std::string::npos && filePath.find("L:\\") == std::string::npos &&
-                       filePath.find("M:\\") == std::string::npos && filePath.find("N:\\") == std::string::npos &&
-                       filePath.find("O:\\") == std::string::npos && filePath.find("P:\\") == std::string::npos &&
-                       filePath.find("Q:\\") == std::string::npos && filePath.find("R:\\") == std::string::npos &&
-                       filePath.find("S:\\") == std::string::npos && filePath.find("T:\\") == std::string::npos &&
-                       filePath.find("U:\\") == std::string::npos && filePath.find("V:\\") == std::string::npos &&
-                       filePath.find("W:\\") == std::string::npos && filePath.find("X:\\") == std::string::npos &&
-                       filePath.find("Y:\\") == std::string::npos && filePath.find("Z:\\") == std::string::npos) {
-                    std::cout << "Your file path is wrong" << std::endl;
-                    std::cout << "Enter your absolute file path \n"
-                                 "(i.e. G:\\szkola\\PJC\\PasswordManagerCPP\\files\\login.txt): ";
-                    std::cin >> filePath;
-                }
-                std::cout << "Your file path is: " << filePath << std::endl;
+                std::cout << "Your file path is: " << filePath << "\n";
                 break;
             case 2:
                 std::cout << "Enter file name:";
                 std::cin >> fileName;
-                std::cout << "Enter new password for file" << std::endl;
+                std::cout << "Enter new password for file" << "\n";
                 std::cin >> password;
                 std::cout << "Enter key to password: ";
                 std::cin >> key;
 
                 file.open("..\\files\\" + fileName + ".txt");
-                file << cipher::encrypt(password, key) << std::endl;
+                file << cipher::encrypt(password, key) << "\n";
                 file << "  Password   | Category |   Login  |     E-mail     |     Site     |     Notes     "
-                     << std::endl;
+                     << "\n";
                 file.close();
 
                 filePath = "..\\files\\" + fileName + ".txt";
 
-                std::cout << "File created" << std::endl;
+                std::cout << "File created" << "\n";
                 break;
             default:
-                std::cout << "Invalid file path" << std::endl;
+                std::cout << "Invalid file path" << "\n";
                 openFile();
                 break;
         }
         return filePath;
     }
 
-    auto deleteFile(const std::string& filePath) -> void {
+    auto deleteFile(const std::string &filePath) -> void {
         std::string fileName;
 
-        std::cout << "1 - If you want to delete file from program" << std::endl;
-        std::cout << "2 - If you want to back to main menu" << std::endl;
+        std::cout << "1 - If you want to delete file from program" << "\n";
+        std::cout << "2 - If you want to back to main menu" << "\n";
 
         int choice;
         std::cout << "Enter number:";
         std::cin >> choice;
         switch (choice) {
             case 1:
-                std::cout << "Remember you can't delete file if it is opened" << std::endl;
+                std::cout << "Remember you can't delete file if it is opened" << "\n";
                 std::cout << "Enter file name to remove: ";
                 std::cin >> fileName;
                 fileName = "..\\files\\" + fileName + ".txt";
 
                 if (fileName == filePath) {
-                    std::cout << "You can't delete opened file" << std::endl;
+                    std::cout << "You can't delete opened file" << "\n";
                     deleteFile(filePath);
                 }
 
@@ -153,11 +125,11 @@ namespace operations {
                 std::cin >> choiceFile;
                 if (choice == 'y') {
                     std::remove(fileName.c_str());
-                    std::cout << "File removed" << std::endl;
+                    std::cout << "File removed" << "\n";
                 } else if (choice == 'n') {
-                    std::cout << "File not removed" << std::endl;
+                    std::cout << "File not removed" << "\n";
                 } else {
-                    std::cout << "Invalid choice" << std::endl;
+                    std::cout << "Invalid choice" << "\n";
                     deleteFile(filePath);
                 }
             case 2:
@@ -170,12 +142,12 @@ namespace operations {
 
     auto quit() -> void {
         std::cout << "Goodbye!\n"
-                     "ps. Mr. Kwiatkowski is a cool teacher" << std::endl;
+                     "ps. Mr. Kwiatkowski is a cool teacher" << "\n";
         exit(0);
     }
 
 
-    auto addPassword(const std::string& filePath) -> void {
+    auto addPassword(const std::string &filePath) -> void {
 
         std::string password;
         std::string category;
@@ -190,10 +162,10 @@ namespace operations {
         char uppercaseLetters;
         char numbers;
 
-        std::cout << "Choose option:\n" << std::endl <<
+        std::cout << "Choose option:\n" << "\n" <<
                   "1 - If you want to add password by self\n"
                   "2 - If you want to add password by generator\n"
-                  "3 - If you want to back to menu\n" << std::endl;
+                  "3 - If you want to back to menu\n" << "\n";
         int choice;
         std::cout << "Enter number:";
         std::cin >> choice;
@@ -265,7 +237,7 @@ namespace operations {
                     std::cout << "Password must contain at least one special symbol. Enter new password: ";
                     std::cin >> password;
                 }
-                std::cout << "Password is correct\n" << std::endl;
+                std::cout << "Password is correct\n" << "\n";
 
                 std::cout << "1. Enter new category \n" <<
                           "2. Choose from the list \n";
@@ -279,7 +251,7 @@ namespace operations {
                 } else if (choiceCategory == 2) {
                     std::cout << "Choose from the list: ";
                     for (int i = 0; i < categories.size(); i++) {
-                        std::cout << i + 1 << ". " << categories[i] << std::endl;
+                        std::cout << i + 1 << ". " << categories[i] << "\n";
                     }
                     int choiceCategory2;
                     std::cin >> choiceCategory2;
@@ -293,7 +265,7 @@ namespace operations {
                 std::cout << "Enter new email: ";
                 std::cin >> email;
                 while (email.find('@') == std::string::npos) {
-                    std::cout << "Email is incorrect, add '@'" << std::endl;
+                    std::cout << "Email is incorrect, add '@'" << "\n";
                     std::cout << "Enter new email: ";
                     std::cin >> email;
                 }
@@ -319,16 +291,16 @@ namespace operations {
                 std::cin >> numbers;
 
                 if (passwordLength < 8 || passwordLength > 24) {
-                    std::cout << "Invalid password length" << std::endl;
+                    std::cout << "Invalid password length" << "\n";
                     addPassword(filePath);
                 } else {
                     password = operations::generatePassword(passwordLength, specialSymbols, lowercaseLetters,
-                                                       uppercaseLetters, numbers);
+                                                            uppercaseLetters, numbers);
                 }
 
 
-                std::cout << "Your password is: " << password << std::endl;
-                std::cout << "Do you want to save it? (y/n)" << std::endl;
+                std::cout << "Your password is: " << password << "\n";
+                std::cout << "Do you want to save it? (y/n)" << "\n";
                 char saveChoice;
                 std::cin >> saveChoice;
                 if (saveChoice == 'y') {
@@ -344,9 +316,9 @@ namespace operations {
                     } else if (choiceCat == 2) {
                         std::cout << "Choose from the list: \n";
                         for (int i = 0; i < categories.size(); i++) {
-                            std::cout << i + 1 << ". " << categories[i] << std::endl;
+                            std::cout << i + 1 << ". " << categories[i] << "\n";
                         }
-                        std::cout << std::endl;
+                        std::cout << "\n";
                         int choiceCategory2;
                         std::cout << "Enter your choice: ";
                         std::cin >> choiceCategory2;
@@ -360,7 +332,7 @@ namespace operations {
                     std::cout << "Enter email: ";
                     std::cin >> email;
                     while (email.find('@') == std::string::npos) {
-                        std::cout << "Email is incorrect, add '@'" << std::endl;
+                        std::cout << "Email is incorrect, add '@'" << "\n";
                         std::cout << "Enter new email: ";
                         std::cin >> email;
                     }
@@ -368,44 +340,44 @@ namespace operations {
                     std::cin >> website;
                     std::cout << "Enter note: ";
                     std::cin >> note;
-                    std::cout << "Saving..." << std::endl;
+                    std::cout << "Saving..." << "\n";
                     std::ofstream fl;
                     fl.open(filePath, std::ios::app);
                     fl << '-' << password << '-' << " | " << '=' << category << '=' << " | " << ':' << login
                        << ':' << " | " << '-' << email << ':' << " | " << '=' << website << ':'
                        << " | " << note;
                     fl.close();
-                    std::cout << "Saved!" << std::endl;
+                    std::cout << "Saved!" << "\n";
                 } else if (saveChoice == 'n') {
-                    std::cout << "You chose no to save password, try again.\n" << std::endl;
+                    std::cout << "You chose no to save password, try again.\n" << "\n";
                     addPassword(filePath);
                 } else {
-                    std::cout << "Invalid choice\n" << std::endl;
+                    std::cout << "Invalid choice\n" << "\n";
                     addPassword(filePath);
                 }
             case 3:
-                std::cout << "Back to menu...\n" << std::endl;
+                std::cout << "Back to menu...\n" << "\n";
                 break;
             default:
-                std::cout << "Invalid choice\n" << std::endl;
+                std::cout << "Invalid choice\n" << "\n";
                 addPassword(filePath);
         }
     }
 
-    auto show(const std::string& filePath) -> void {
+    auto show(const std::string &filePath) -> void {
         std::ifstream file;
         file.open(filePath);
         int numberLine = 0;
         while (!file.eof()) {
             std::string line;
             std::getline(file, line);
-            std::cout << numberLine << ". " << line << std::endl;
+            std::cout << numberLine << ". " << line << "\n";
             numberLine++;
         }
-        std::cout << std::endl;
+        std::cout << "\n";
     }
 
-    auto editPassword(const std::string& filePath) -> void {
+    auto editPassword(const std::string &filePath) -> void {
         std::ifstream file;
         file.open(filePath);
         int numberLine = 0;
@@ -417,7 +389,7 @@ namespace operations {
         std::string newPassword;
 
         std::cout << "1 - If you want to edit password\n" <<
-                        "2 - If you want to back to menu\n";
+                  "2 - If you want to back to menu\n";
 
         int choice;
         std::cout << "Enter your choice: ";
@@ -427,10 +399,10 @@ namespace operations {
                 while (!file.eof()) {
                     std::string line;
                     std::getline(file, line);
-                    std::cout << numberLine << ". " << line << std::endl;
+                    std::cout << numberLine << ". " << line << "\n";
                     numberLine++;
                 }
-                std::cout << std::endl;
+                std::cout << "\n";
 
                 std::cout << "Enter password to edit: ";
                 std::cin >> passwordToEdit;
@@ -499,7 +471,7 @@ namespace operations {
                     std::cout << "Password must contain at least one special symbol. Enter new password: ";
                     std::cin >> newPassword;
                 }
-                std::cout << "Password is correct\n" << std::endl;
+                std::cout << "Password is correct\n" << "\n";
 
                 while (file >> lineSearch) {
                     if (lineSearch == passwordToEdit) {
@@ -513,7 +485,7 @@ namespace operations {
                 remove(filePath.c_str());
                 rename("..\\files\\temp2.txt", filePath.c_str());
 
-                std::cout << "Password changed successfully" << std::endl;
+                std::cout << "Password changed successfully" << "\n";
             case 2:
                 break;
             default:
@@ -522,7 +494,7 @@ namespace operations {
         }
     }
 
-    auto removePassword(const std::string& filePath) -> void {
+    auto removePassword(const std::string &filePath) -> void {
         std::fstream file;
         std::string line;
         int numberLine = 0;
@@ -534,8 +506,8 @@ namespace operations {
         std::fstream temp;
         temp.open("..\\files\\temp.txt", std::fstream::out);
 
-        std::cout << "1 - If you want to remove password" << std::endl;
-        std::cout << "2 - If you want to back to menu" << std::endl;
+        std::cout << "1 - If you want to remove password" << "\n";
+        std::cout << "2 - If you want to back to menu" << "\n";
 
         int choice;
         std::cout << "Enter your choice: ";
@@ -546,22 +518,22 @@ namespace operations {
                 while (!file.eof()) {
                     std::string str;
                     std::getline(file, str);
-                    std::cout << numberLine << ". " << str << std::endl;
+                    std::cout << numberLine << ". " << str << "\n";
                     numberLine++;
                 }
-                std::cout << std::endl;
+                std::cout << "\n";
 
                 std::cout << "Enter passwordLine line to remove: ";
                 std::cin >> passwordLine;
 
                 if (passwordLine < 2 || passwordLine > numberLine) {
-                    std::cout << "Invalid number\n" << std::endl;
+                    std::cout << "Invalid number\n" << "\n";
                     removePassword(filePath);
                 } else {
-                    std::cout << "Removing..." << std::endl;
+                    std::cout << "Removing..." << "\n";
                     while (std::getline(file, line)) {
                         if (lineNumberToDelete != passwordLine) {
-                            temp << line << std::endl;
+                            temp << line << "\n";
                         }
                         lineNumberToDelete++;
                     }
@@ -578,7 +550,7 @@ namespace operations {
         }
     }
 
-    auto searchPassword(const std::string& filePath) -> void {
+    auto searchPassword(const std::string &filePath) -> void {
         std::fstream file;
         std::string word;
         int numberLine = 0;
@@ -586,8 +558,8 @@ namespace operations {
 
         file.open(filePath.c_str());
 
-        std::cout << "1 - If you want to search" << std::endl;
-        std::cout << "2 - If you want to back to menu" << std::endl;
+        std::cout << "1 - If you want to search" << "\n";
+        std::cout << "2 - If you want to back to menu" << "\n";
 
         int choice;
         std::cout << "Enter your choice: ";
@@ -597,35 +569,35 @@ namespace operations {
             case 1:
                 std::cout << "Enter word to equals: ";
                 std::cin >> word;
-                std::cout << std::endl;
+                std::cout << "\n";
 
-                std::cout << "Searching..." << std::endl;
+                std::cout << "Searching..." << "\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
-                std::cout << "Found passwords:" << std::endl;
+                std::cout << "Found passwords:" << "\n";
 
                 while (!file.eof()) {
                     std::string line;
                     std::getline(file, line);
                     if (line.find(word) != std::string::npos) {
-                        std::cout << numberLine << ". " << line << std::endl;
+                        std::cout << numberLine << ". " << line << "\n";
                         counter++;
                     }
                     numberLine++;
                 }
                 if (counter == 0) {
-                    std::cout << "No passwords found" << std::endl;
+                    std::cout << "No passwords found" << "\n";
                 }
 
-                std::cout << std::endl;
+                std::cout << "\n";
             case 2:
                 break;
             default:
-                std::cout << "Invalid number" << std::endl;
+                std::cout << "Invalid number" << "\n";
                 searchPassword(filePath);
         }
     }
 
-    auto sortPasswords(const std::string& filePath) -> void {
+    auto sortPasswords(const std::string &filePath) -> void {
         std::fstream file;
         file.open(filePath);
 
@@ -683,14 +655,14 @@ namespace operations {
             }
         }
 
-        std::cout << "Enter sort type: " << std::endl;
-        std::cout << "1 - If you want to sort by length" << std::endl;
-        std::cout << "2 - If you want to sort by alphabet" << std::endl;
-        std::cout << "3 - If you want to sort by category" << std::endl;
-        std::cout << "4 - If you want to sort by login" << std::endl;
-        std::cout << "5 - If you want to sort by email" << std::endl;
-        std::cout << "6 - If you want to sort by website" << std::endl;
-        std::cout << "7 - If you want to back to menu" << std::endl;
+        std::cout << "Enter sort type: " << "\n";
+        std::cout << "1 - If you want to sort by length" << "\n";
+        std::cout << "2 - If you want to sort by alphabet" << "\n";
+        std::cout << "3 - If you want to sort by category" << "\n";
+        std::cout << "4 - If you want to sort by login" << "\n";
+        std::cout << "5 - If you want to sort by email" << "\n";
+        std::cout << "6 - If you want to sort by website" << "\n";
+        std::cout << "7 - If you want to back to menu" << "\n";
 
         int sortType;
         std::cout << "Enter sort type: \n";
@@ -698,65 +670,65 @@ namespace operations {
 
         switch (sortType) {
             case 1:
-                std::cout << "Sorting by length..." << std::endl;
+                std::cout << "Sorting by length..." << "\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 std::sort(passwords.begin(), passwords.end(), [](const std::string &a, const std::string &b) {
                     return a.length() < b.length();
                 });
                 for (auto &i: passwords) {
-                    std::cout << i << std::endl;
+                    std::cout << i << "\n";
                 }
-                std::cout << std::endl;
+                std::cout << "\n";
                 break;
             case 2:
-                std::cout << "Sorting by alphabet..." << std::endl;
+                std::cout << "Sorting by alphabet..." << "\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 std::sort(passwords.begin(), passwords.end());
                 for (auto &i: passwords) {
-                    std::cout << i << std::endl;
+                    std::cout << i << "\n";
                 }
-                std::cout << std::endl;
+                std::cout << "\n";
                 break;
             case 3:
-                std::cout << "Sorting by category..." << std::endl;
+                std::cout << "Sorting by category..." << "\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 std::sort(categories.begin(), categories.end());
                 for (auto &i: categories) {
-                    std::cout << i << std::endl;
+                    std::cout << i << "\n";
                 }
-                std::cout << std::endl;
+                std::cout << "\n";
                 break;
             case 4:
-                std::cout << "Sorting by login..." << std::endl;
+                std::cout << "Sorting by login..." << "\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 std::sort(logins.begin(), logins.end());
                 for (auto &i: logins) {
-                    std::cout << i << std::endl;
+                    std::cout << i << "\n";
                 }
-                std::cout << std::endl;
+                std::cout << "\n";
                 break;
             case 5:
-                std::cout << "Sorting by email..." << std::endl;
+                std::cout << "Sorting by email..." << "\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 std::sort(emails.begin(), emails.end());
                 for (auto &i: emails) {
-                    std::cout << i << std::endl;
+                    std::cout << i << "\n";
                 }
-                std::cout << std::endl;
+                std::cout << "\n";
             case 6:
-                std::cout << "Sorting by website..." << std::endl;
+                std::cout << "Sorting by website..." << "\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 std::sort(websites.begin(), websites.end());
                 for (auto &i: websites) {
-                    std::cout << i << std::endl;
+                    std::cout << i << "\n";
                 }
-                std::cout << std::endl;
+                std::cout << "\n";
             case 7:
-                std::cout << "Back to menu..." << std::endl;
+                std::cout << "Back to menu..." << "\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 break;
             default:
-                std::cout << "Wrong input..." << std::endl;
+                std::cout << "Wrong input..." << "\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 break;
         }
@@ -765,37 +737,37 @@ namespace operations {
     auto addCategory() -> void {
         std::string categoryName;
 
-        std::cout << "Category added!\n" << std::endl;
-        std::cout << "1 - If you want to add category." << std::endl;
-        std::cout << "2 - If you want to show categories." << std::endl;
-        std::cout << "3 - If you want to go back to menu.\n" << std::endl;
+        std::cout << "Category added!\n" << "\n";
+        std::cout << "1 - If you want to add category." << "\n";
+        std::cout << "2 - If you want to show categories." << "\n";
+        std::cout << "3 - If you want to go back to menu.\n" << "\n";
 
         int choice;
-        std::cout << "Enter choice: \n" << std::endl;
+        std::cout << "Enter choice: \n" << "\n";
         std::cin >> choice;
         switch (choice) {
             case 1:
-                std::cout << "Enter category: " << std::endl;
+                std::cout << "Enter category: " << "\n";
                 std::cin >> categoryName;
                 categories.push_back(categoryName);
                 break;
             case 2:
                 for (int i = 0; i < categories.size(); i++) {
-                    std::cout << i + 1 << ". " << categories[i] << std::endl;
+                    std::cout << i + 1 << ". " << categories[i] << "\n";
                 }
-                std::cout << std::endl;
+                std::cout << "\n";
                 break;
             case 3:
                 break;
             default:
-                std::cout << "Wrong input..." << std::endl;
+                std::cout << "Wrong input..." << "\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 addCategory();
         }
 
     }
 
-    auto removeCategory(const std::string& filePath) -> void {
+    auto removeCategory(const std::string &filePath) -> void {
         std::fstream file;
         int numberLine = 0;
         std::string categoryNameToRemove;
@@ -810,20 +782,20 @@ namespace operations {
         while (!file.eof()) {
             std::string line;
             std::getline(file, line);
-            std::cout << numberLine << ". " << line << std::endl;
+            std::cout << numberLine << ". " << line << "\n";
             numberLine++;
         }
-        std::cout << std::endl;
+        std::cout << "\n";
 
-        std::cout << "1 - If you want to remove category." << std::endl;
-        std::cout << "2 - If you want to go back to menu.\n" << std::endl;
+        std::cout << "1 - If you want to remove category." << "\n";
+        std::cout << "2 - If you want to go back to menu.\n" << "\n";
 
         int choice;
-        std::cout << "Enter choice: \n" << std::endl;
+        std::cout << "Enter choice: \n" << "\n";
         std::cin >> choice;
         switch (choice) {
             case 1:
-                std::cout << "Remember this removes all passwords in this category \n" << std::endl;
+                std::cout << "Remember this removes all passwords in this category \n" << "\n";
                 std::cout << "Enter category to remove: ";
                 std::cin >> categoryNameToRemove;
 
@@ -839,7 +811,7 @@ namespace operations {
                     std::string line;
                     std::getline(file, line);
                     if (line != categoryNameToRemove) {
-                        temp << line << std::endl;
+                        temp << line << "\n";
                     }
 
                     file.close();
@@ -847,16 +819,17 @@ namespace operations {
                     remove(filePath.c_str());
                     rename("..\\files\\temp.txt", filePath.c_str());
                 }
-                std::cout << "Category removed\n" << std::endl;
+                std::cout << "Category removed\n" << "\n";
                 break;
             case 2:
                 break;
             default:
-                std::cout << "Wrong input..." << std::endl;
+                std::cout << "Wrong input..." << "\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 removeCategory(filePath);
         }
     }
+
     auto generatePassword(int passwordLength, char specialSymbols, char lowercaseLetters, char uppercaseLetters,
                           char numbers) -> std::string {
         std::string password;

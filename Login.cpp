@@ -5,7 +5,7 @@
 #include "Cipher.hpp"
 
 namespace login {
-    auto loginIn(const std::string& filePath) -> bool {
+    auto loginIn(const std::string &filePath) -> bool {
         std::fstream file = std::fstream(filePath);
         std::string pass;
         file.open(filePath);
@@ -18,10 +18,10 @@ namespace login {
         std::string userPassword;
         int key;
 
-        std::cout << "Password: " << std::endl;
+        std::cout << "Password: " << "\n";
         std::cin >> userPassword;
 
-        std::cout << "Key: " << std::endl;
+        std::cout << "Key: " << "\n";
         std::cin >> key;
 
         std::string globalPass;
@@ -30,28 +30,29 @@ namespace login {
 
 
         if (userPassword == globalPass) {
-            std::cout << "Correct password \n" << std::endl;
+            std::cout << "Correct password \n";
             file.close();
-            time_t timeNow = time(nullptr);
-            login::saveTime(timeNow, filePath, true);
             return true;
         } else {
-            std::cout << "Incorrect password, try again (remember you have 3 attempts) \n" << "\n";
+            std::cout << "Incorrect password, try again (remember you have 3 attempts) \n";
             return false;
         }
 
     }
 
-    auto saveTime(time_t time, const std::string& filePath, const bool& isSuccess) -> void {
+    auto saveTime(time_t time, const std::string &filePath, const bool &isSuccess) -> void {
 
         std::fstream loginsOut;
         loginsOut.open("..\\files\\logList.txt", std::ios::out | std::ios::app);
 
         char *dt = std::ctime(&time);
-        loginsOut << filePath << " <--- Last login time -- " << dt << "\n";
+
+        if (isSuccess) {
+            loginsOut << filePath << " <--- SUCCESSFUL login time -- " << dt << "\n";
+        } else {
+            loginsOut << filePath << " <--- NOT SUCCESSFUL login time -- " << dt << "\n";
+        }
         loginsOut.close();
-
-
     }
 }
 
