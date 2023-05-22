@@ -11,6 +11,14 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(fmt)
 
-add_executable(S28352_P01 main.cpp)
+add_executable(S28352_P01
+        main.cpp
+        Cipher.cpp
+        Cipher.hpp
+        Operations.cpp
+        Operations.hpp
+        Login.cpp
+        Login.hpp
+        )
 target_link_libraries(S28352_P01 fmt)
 
