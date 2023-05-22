@@ -3,7 +3,7 @@
 
 
 namespace cipher {
-    auto encrypt(const std::string& message, const std::uint32_t key) -> std::string;
+    auto encrypt(const std::string& message, std::uint32_t key) -> std::string;
 
     /**
      * @brief Decrypts a message using a key
@@ -11,7 +11,7 @@ namespace cipher {
      * @param key
      */
 
-    auto dcrypt(const std::string& message, const std::uint32_t key) -> std::string;
+    auto dcrypt(const std::string& message, std::uint32_t key) -> std::string;
 
     /**
      * @brief Encrypts a message using a key

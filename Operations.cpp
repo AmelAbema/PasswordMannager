@@ -13,10 +13,6 @@ namespace operations {
 
 
     auto help() -> void {
-        std::cout << " ___                                                     \n"
-                     " /__)  _   _   _         _  _/   /|/|  _     _   _  _  _ \n"
-                     "/     (/ _)  _)  ((/ () /  (/   /   | (/ /) (/  (/ (- /  \n"
-                     "                                               _/        " << std::endl;
         std::cout << "Helow, this is a password manager,\n"
                      "made by Piotr Jalocha,\n"
                      "you can use this program to manage your passwords.\n" << std::endl;
@@ -74,7 +70,7 @@ namespace operations {
                                  "(i.e. G:\\szkola\\PJC\\PasswordManagerCPP\\files\\login.txt): ";
                     std::cin >> filePath;
                 }
-                while (filePath.find("\\") == std::string::npos) {
+                while (filePath.find('\\') == std::string::npos) {
                     std::cout << "Your file path is wrong" << std::endl;
                     std::cout << "Enter your absolute file path \n"
                                  "(i.e. G:\\szkola\\PJC\\PasswordManagerCPP\\files\\login.txt): ";
@@ -131,7 +127,7 @@ namespace operations {
         return filePath;
     }
 
-    auto deleteFile(std::string filePath) -> void {
+    auto deleteFile(const std::string& filePath) -> void {
         std::string fileName;
 
         std::cout << "1 - If you want to delete file from program" << std::endl;
@@ -166,6 +162,9 @@ namespace operations {
                 }
             case 2:
                 break;
+            default:
+                std::cout << "Invalid choice" << "\n";
+                break;
         }
     }
 
@@ -176,7 +175,7 @@ namespace operations {
     }
 
 
-    auto addPassword(std::string filePath) -> void {
+    auto addPassword(const std::string& filePath) -> void {
 
         std::string password;
         std::string category;
@@ -335,14 +334,14 @@ namespace operations {
                 if (saveChoice == 'y') {
                     std::cout << "1. Enter new category \n" <<
                               "2. Choose from the list \n";
-                    int choiceCategory;
+                    int choiceCat;
                     std::cout << "Enter your choice: ";
-                    std::cin >> choiceCategory;
-                    if (choiceCategory == 1) {
+                    std::cin >> choiceCat;
+                    if (choiceCat == 1) {
                         std::cout << "Enter new category: \n";
                         std::cin >> category;
                         categories.push_back(category);
-                    } else if (choiceCategory == 2) {
+                    } else if (choiceCat == 2) {
                         std::cout << "Choose from the list: \n";
                         for (int i = 0; i < categories.size(); i++) {
                             std::cout << i + 1 << ". " << categories[i] << std::endl;
@@ -370,12 +369,12 @@ namespace operations {
                     std::cout << "Enter note: ";
                     std::cin >> note;
                     std::cout << "Saving..." << std::endl;
-                    std::ofstream file;
-                    file.open(filePath, std::ios::app);
-                    file << '-' << password << '-' << " | " << '=' << category << '=' << " | " << ':' << login
-                         << ':' << " | " << '-' << email << ':' << " | " << '=' << website << ':'
-                         << " | " << note;
-                    file.close();
+                    std::ofstream fl;
+                    fl.open(filePath, std::ios::app);
+                    fl << '-' << password << '-' << " | " << '=' << category << '=' << " | " << ':' << login
+                       << ':' << " | " << '-' << email << ':' << " | " << '=' << website << ':'
+                       << " | " << note;
+                    fl.close();
                     std::cout << "Saved!" << std::endl;
                 } else if (saveChoice == 'n') {
                     std::cout << "You chose no to save password, try again.\n" << std::endl;
@@ -393,7 +392,7 @@ namespace operations {
         }
     }
 
-    auto show(std::string filePath) -> void {
+    auto show(const std::string& filePath) -> void {
         std::ifstream file;
         file.open(filePath);
         int numberLine = 0;
@@ -406,7 +405,7 @@ namespace operations {
         std::cout << std::endl;
     }
 
-    auto editPassword(std::string filePath) -> void {
+    auto editPassword(const std::string& filePath) -> void {
         std::ifstream file;
         file.open(filePath);
         int numberLine = 0;
@@ -517,10 +516,13 @@ namespace operations {
                 std::cout << "Password changed successfully" << std::endl;
             case 2:
                 break;
+            default:
+                std::cout << "Invalid choice" << "\n";
+                break;
         }
     }
 
-    auto removePassword(std::string filePath) -> void {
+    auto removePassword(const std::string& filePath) -> void {
         std::fstream file;
         std::string line;
         int numberLine = 0;
@@ -542,9 +544,9 @@ namespace operations {
         switch (choice) {
             case 1:
                 while (!file.eof()) {
-                    std::string line;
-                    std::getline(file, line);
-                    std::cout << numberLine << ". " << line << std::endl;
+                    std::string str;
+                    std::getline(file, str);
+                    std::cout << numberLine << ". " << str << std::endl;
                     numberLine++;
                 }
                 std::cout << std::endl;
@@ -569,6 +571,9 @@ namespace operations {
                     rename("..\\files\\temp.txt", filePath.c_str());
                 }
             case 2:
+                break;
+            default:
+                std::cout << "Invalid choice" << "\n";
                 break;
         }
     }
@@ -790,7 +795,7 @@ namespace operations {
 
     }
 
-    auto removeCategory(const std::string filePath) -> void {
+    auto removeCategory(const std::string& filePath) -> void {
         std::fstream file;
         int numberLine = 0;
         std::string categoryNameToRemove;
@@ -855,12 +860,12 @@ namespace operations {
     auto generatePassword(int passwordLength, char specialSymbols, char lowercaseLetters, char uppercaseLetters,
                           char numbers) -> std::string {
         std::string password;
-        srand(time(NULL));
+        srand(time(nullptr));
         std::string alphabet = "abcdefghijklmnopqrstuvwxyz";
         std::string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         std::string symbol = "!@#$%&";
         std::string number = "0123456789";
-        std::string charsToMakePassword = "";
+        std::string charsToMakePassword;
 
         if (specialSymbols == 'y') {
             charsToMakePassword += symbol;

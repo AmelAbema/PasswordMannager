@@ -16,7 +16,7 @@ namespace operations {
      * @return filePath
      */
 
-    auto deleteFile(std::string filePath) -> void;
+    auto deleteFile(const std::string& filePath) -> void;
 
     /**
      * @brief Function deletes file
@@ -29,14 +29,14 @@ namespace operations {
      * @brief quit program
      */
 
-    auto addPassword(std::string filePath) -> void;
+    auto addPassword(const std::string& filePath) -> void;
 
     /**
     * @brief Function adds new password to file by user input or random password grenated by program
     * @param filePath Path to file
     */
 
-    auto show(std::string filePath) -> void;
+    auto show(const std::string& filePath) -> void;
 
     /**
      * @brief Function shows all passwords in file
@@ -44,14 +44,14 @@ namespace operations {
      *
      */
 
-    auto editPassword(std::string filePath) -> void;
+    auto editPassword(const std::string& filePath) -> void;
 
     /**
      * @brief Function edits password by user input
      * @param filePath Path to file
      */
 
-    auto removePassword(std::string filePath) -> void;
+    auto removePassword(const std::string& filePath) -> void;
 
     /**
     * @brief Function removes password from file
@@ -81,7 +81,7 @@ namespace operations {
      *
      */
 
-    auto removeCategory(std::string filePath) -> void;
+    auto removeCategory(const std::string& filePath) -> void;
 
     /**
      * @brief Function removes category from file
