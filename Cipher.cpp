@@ -3,23 +3,27 @@
 
 
 namespace cipher{
-    auto encrypt(const std::string& message, const std::uint32_t key) -> std::string {
+    auto encrypt(const std::string& message) -> std::string {
         std::string encryptedMessage;
         encryptedMessage.reserve(message.size());
 
-        for (auto ch : message | std::views::transform([] (char ch) { return (unsigned char)(ch); })) {
-            encryptedMessage+=(ch+key);
+        // ABC -> A + 1  B + 2  C + 3  -> BDF
+        for (int i = 0, j = 1; i < message.length(); i++, j++) {
+            encryptedMessage += char(message[i] + j);
         }
+
         return encryptedMessage;
     }
 
-    auto dcrypt(const std::string& message, const std::uint32_t key) -> std::string {
+    auto decrypt(const std::string& message) -> std::string {
         std::string decryptedMessage;
         decryptedMessage.reserve(message.size());
 
-        for (auto ch : message | std::views::transform([] (char ch) { return (unsigned char)(ch); })) {
-            decryptedMessage+=(ch-key);
+        // BDF -> B - 1  D - 2  F - 3  -> ABC
+        for (int i = 0, j = 1; i < message.length(); i++, j++) {
+            decryptedMessage += char(message[i] - j);
         }
+
         return decryptedMessage;
     }
 }

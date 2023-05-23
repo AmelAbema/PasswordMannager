@@ -27,7 +27,7 @@ namespace operations {
                 "1 - write absolute path to your file\n"
                 "2 - create new file\n"
                 "\n"
-                );
+        );
         int choice;
         fmt::print("Enter number:");
         std::cin >> choice;
@@ -56,7 +56,7 @@ namespace operations {
                 std::cin >> key;
 
                 file.open("..\\files\\" + fileName + ".txt");
-                file << cipher::encrypt(password, key) << "\n";
+                file << cipher::encrypt(password) << "\n";
                 file.close();
 
                 filePath = "..\\files\\" + fileName + ".txt";
@@ -76,8 +76,8 @@ namespace operations {
 
         fmt::print(
                 "1 - Delete file from program \n"
-                    "2 - Back to main menu \n"
-                );
+                "2 - Back to main menu \n"
+        );
 
         int choice;
         fmt::print("Enter number: ");
@@ -94,13 +94,13 @@ namespace operations {
                     deleteFile(filePath);
                 }
 
-                std::cout << "Are you sure you want to remove file? (y/n)";
-                char choiceFile;
+                std::cout << "Are you sure you want to remove file? \n1. Yes\n2. No\nEnter number: ";
+                int choiceFile;
                 std::cin >> choiceFile;
-                if (choice == 'y') {
+                if (choice == 1) {
                     std::remove(fileName.c_str());
                     std::cout << "File removed" << "\n";
-                } else if (choice == 'n') {
+                } else if (choice == 2) {
                     std::cout << "File not removed" << "\n";
                 } else {
                     std::cout << "Invalid choice" << "\n";
@@ -110,13 +110,13 @@ namespace operations {
                 break;
             default:
                 std::cout << "Invalid choice" << "\n";
+                deleteFile(filePath);
                 break;
         }
     }
 
     auto quit() -> void {
-        std::cout << "Goodbye!\n"
-                     "ps. Mr. Kwiatkowski is a cool teacher" << "\n";
+        std::cout << "Goodbye!\n" << "\n";
         exit(0);
     }
 
@@ -135,6 +135,7 @@ namespace operations {
         char lowercaseLetters;
         char uppercaseLetters;
         char numbers;
+        std::string fLine1;
 
         std::cout << "Choose option:\n" << "\n" <<
                   "1 - If you want to add password by self\n"
@@ -247,10 +248,14 @@ namespace operations {
                 std::cin >> website;
                 std::cout << "Enter new note: ";
                 std::cin >> note;
+                fLine1 = '-' + password + '-' + " | "
+                        + '=' + category + '=' + " | "
+                        + ':' + login + ':' + " | "
+                        + '-' + email + ':' + " | "
+                        + '=' + website + ':' + " | "
+                        + note;
                 file.open(filePath, std::ios::app);
-                file << '-' << password << '-' << " | " << '=' << category << '=' << " | " << ':' << login << ':'
-                     << " | " << '-' << email << ':' << " | " << '=' << website << ':'
-                     << " | " << note;
+                file << fLine1;
                 file.close();
             case 2:
                 std::cout << "Enter password length (8-24): ";
@@ -317,9 +322,13 @@ namespace operations {
                     std::cout << "Saving..." << "\n";
                     std::ofstream fl;
                     fl.open(filePath, std::ios::app);
-                    fl << '-' << password << '-' << " | " << '=' << category << '=' << " | " << ':' << login
-                       << ':' << " | " << '-' << email << ':' << " | " << '=' << website << ':'
-                       << " | " << note;
+                    std::string line = '-' + password + '-' + " | "
+                                       + '=' + category + '=' + " | "
+                                       + ':' + login + ':' + " | "
+                                       + '-' + email + ':' + " | "
+                                       + '=' + website + ':' + " | "
+                                       + note;
+                    fl << cipher::encrypt(line);
                     fl.close();
                     std::cout << "Saved!" << "\n";
                 } else if (saveChoice == 'n') {
@@ -345,7 +354,7 @@ namespace operations {
         while (!file.eof()) {
             std::string line;
             std::getline(file, line);
-            std::cout << numberLine << ". " << line << "\n";
+            std::cout << numberLine << ". " << cipher::decrypt(line) << "\n";
             numberLine++;
         }
         std::cout << "\n";
@@ -373,7 +382,7 @@ namespace operations {
                 while (!file.eof()) {
                     std::string line;
                     std::getline(file, line);
-                    std::cout << numberLine << ". " << line << "\n";
+                    std::cout << numberLine << ". " << cipher::decrypt(line) << "\n";
                     numberLine++;
                 }
                 std::cout << "\n";
@@ -448,16 +457,17 @@ namespace operations {
                 std::cout << "Password is correct\n" << "\n";
 
                 while (file >> lineSearch) {
+                    lineSearch = cipher::decrypt(lineSearch);
                     if (lineSearch == passwordToEdit) {
                         lineSearch = newPassword;
                     }
                     lineSearch += " ";
-                    temp << lineSearch;
+                    temp << cipher::encrypt(lineSearch);
                 }
                 file.close();
                 temp.close();
                 remove(filePath.c_str());
-                rename("..\\files\\temp2.txt", filePath.c_str());
+                rename("..\\files\\temp.txt", filePath.c_str());
 
                 std::cout << "Password changed successfully" << "\n";
             case 2:

@@ -17,17 +17,13 @@ namespace login {
         std::getline(file, pass);
 
         std::string userPassword;
-        int key;
 
         fmt::print("Password: \n");
         std::cin >> userPassword;
 
-        fmt::print("Key: \n");
-        std::cin >> key;
-
         std::string globalPass;
 
-        globalPass = cipher::dcrypt(pass, key);
+        globalPass = cipher::decrypt(pass);
 
 
         if (userPassword == globalPass) {
