@@ -6,6 +6,7 @@
 #include <regex>
 #include "Operations.hpp"
 #include "Cipher.hpp"
+#include <fmt/ranges.h>
 
 namespace operations {
 
@@ -20,49 +21,50 @@ namespace operations {
         int key;
         std::ofstream file;
 
-        std::cout << "Choose option:\n" << "\n" <<
-                  "1 - write absolute path to your file\n"
-                  "2 - create new file\n" << "\n";
-
+        fmt::print(
+                "Choose option:\n "
+                "\n"
+                "1 - write absolute path to your file\n"
+                "2 - create new file\n"
+                "\n"
+                );
         int choice;
-        std::cout << "Enter number:";
+        fmt::print("Enter number:");
         std::cin >> choice;
-        std::cout << "\n";
+        fmt::print("\n");
 
         switch (choice) {
             case 1:
-                std::cout << "Enter your absolute file path \n";
+                fmt::print("Enter your absolute file path \n");
                 std::cin >> filePath;
                 while (
                         filePath.length() == 0 &&
                         filePath.find('\\') == std::string::npos &&
                         filePath.find(".txt") == std::string::npos
                         ) {
-                    std::cout << "Your file path is wrong" << "\n";
+                    fmt::print("Your file path is wrong \n");
                     std::cin >> filePath;
                 }
-                std::cout << "Your file path is: " << filePath << "\n";
+                fmt::print("Your file path is: {}\n", filePath);
                 break;
             case 2:
-                std::cout << "Enter file name:";
+                fmt::print("Enter file name:");
                 std::cin >> fileName;
-                std::cout << "Enter new password for file" << "\n";
+                fmt::print("Enter new password for file \n");
                 std::cin >> password;
-                std::cout << "Enter key to password: ";
+                fmt::print("Enter key to password: ");
                 std::cin >> key;
 
                 file.open("..\\files\\" + fileName + ".txt");
                 file << cipher::encrypt(password, key) << "\n";
-                file << "  Password   | Category |   Login  |     E-mail     |     Site     |     Notes     "
-                     << "\n";
                 file.close();
 
                 filePath = "..\\files\\" + fileName + ".txt";
 
-                std::cout << "File created" << "\n";
+                fmt::print("File created \n");
                 break;
             default:
-                std::cout << "Invalid file path" << "\n";
+                fmt::print("Invalid file path \n");
                 openFile();
                 break;
         }
@@ -72,11 +74,13 @@ namespace operations {
     auto deleteFile(const std::string &filePath) -> void {
         std::string fileName;
 
-        std::cout << "1 - If you want to delete file from program" << "\n";
-        std::cout << "2 - If you want to back to main menu" << "\n";
+        fmt::print(
+                "1 - Delete file from program \n"
+                    "2 - Back to main menu \n"
+                );
 
         int choice;
-        std::cout << "Enter number:";
+        fmt::print("Enter number: ");
         std::cin >> choice;
         switch (choice) {
             case 1:
