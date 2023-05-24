@@ -226,8 +226,13 @@ namespace operations {
                     std::cout << "Invalid password length" << "\n";
                     addPassword(filePath);
                 } else {
-                    password = operations::generatePassword(passwordLength, specialSymbols, lowercaseLetters,
-                                                            uppercaseLetters, numbers);
+                    password = operations::generatePassword(
+                            passwordLength,
+                            specialSymbols,
+                            lowercaseLetters,
+                            uppercaseLetters,
+                            numbers
+                            );
                 }
 
 
