@@ -11,13 +11,6 @@ namespace operations {
      * @return filePath
      */
 
-    auto deleteFile(const std::string& filePath) -> void;
-
-    /**
-     * @brief Function deletes file
-     * @param filePath
-     */
-
     auto quit() -> void;
 
     /**

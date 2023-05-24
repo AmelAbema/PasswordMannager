@@ -18,7 +18,6 @@ namespace operations {
         std::string filePath;
         std::string fileName;
         std::string password;
-        int key;
         std::ofstream file;
 
         fmt::print(
@@ -52,8 +51,6 @@ namespace operations {
                 std::cin >> fileName;
                 fmt::print("Enter new password for file \n");
                 std::cin >> password;
-                fmt::print("Enter key to password: ");
-                std::cin >> key;
 
                 file.open("..\\files\\" + fileName + ".txt");
                 file << cipher::encrypt(password) << "\n";
@@ -69,50 +66,6 @@ namespace operations {
                 break;
         }
         return filePath;
-    }
-
-    auto deleteFile(const std::string &filePath) -> void {
-        std::string fileName;
-
-        fmt::print(
-                "1 - Delete file from program \n"
-                "2 - Back to main menu \n"
-        );
-
-        int choice;
-        fmt::print("Enter number: ");
-        std::cin >> choice;
-        switch (choice) {
-            case 1:
-                std::cout << "Remember you can't delete file if it is opened" << "\n";
-                std::cout << "Enter file name to remove: ";
-                std::cin >> fileName;
-                fileName = "..\\files\\" + fileName + ".txt";
-
-                if (fileName == filePath) {
-                    std::cout << "You can't delete opened file" << "\n";
-                    deleteFile(filePath);
-                }
-
-                std::cout << "Are you sure you want to remove file? \n1. Yes\n2. No\nEnter number: ";
-                int choiceFile;
-                std::cin >> choiceFile;
-                if (choice == 1) {
-                    std::remove(fileName.c_str());
-                    std::cout << "File removed" << "\n";
-                } else if (choice == 2) {
-                    std::cout << "File not removed" << "\n";
-                } else {
-                    std::cout << "Invalid choice" << "\n";
-                    deleteFile(filePath);
-                }
-            case 2:
-                break;
-            default:
-                std::cout << "Invalid choice" << "\n";
-                deleteFile(filePath);
-                break;
-        }
     }
 
     auto quit() -> void {
@@ -255,7 +208,7 @@ namespace operations {
                         + '=' + website + ':' + " | "
                         + note;
                 file.open(filePath, std::ios::app);
-                file << fLine1;
+                file << cipher::encrypt(fLine1) << "\n";
                 file.close();
             case 2:
                 std::cout << "Enter password length (8-24): ";
@@ -328,7 +281,7 @@ namespace operations {
                                        + '-' + email + ':' + " | "
                                        + '=' + website + ':' + " | "
                                        + note;
-                    fl << cipher::encrypt(line);
+                    fl << cipher::encrypt(line) << "\n";
                     fl.close();
                     std::cout << "Saved!" << "\n";
                 } else if (saveChoice == 'n') {
@@ -560,10 +513,12 @@ namespace operations {
                 std::cout << "Found passwords:" << "\n";
 
                 while (!file.eof()) {
+
                     std::string line;
                     std::getline(file, line);
-                    if (line.find(word) != std::string::npos) {
-                        std::cout << numberLine << ". " << line << "\n";
+                    std::string newLine = cipher::decrypt(line);
+                    if (newLine.find(word) != std::string::npos) {
+                        std::cout << numberLine << ". " << newLine << "\n";
                         counter++;
                     }
                     numberLine++;
